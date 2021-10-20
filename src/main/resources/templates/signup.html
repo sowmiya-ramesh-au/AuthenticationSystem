@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts::head"></head>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="signup-content">
+        <div class="signup-form">
+            <h2 class="form-title">Sign up</h2>
+
+            <div class="alert alert-success" role="alert" th:if="${registrationMsg != null}">
+                <p th:text="${registrationMsg}"></p>
+            </div>
+
+            <form class="register-form" enctype="multipart/form-data" id="register-form" th:object="${user}"
+                  method="POST"
+                  th:action="@{/signup}">
+
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                   th:errorclass="error"></p>
+                <div class="form-group">
+                    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                    <input id="name" name="name" placeholder="User Name" th:field="*{username}" type="text"/>
+                </div>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                   th:errorclass="error"></p>
+                <div class="form-group">
+                    <label for="email"><i class="zmdi zmdi-email"></i></label>
+                    <input id="email" name="email" placeholder="Your Email" th:field="*{email}"
+                           type="email"/>
+                </div>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                   th:errorclass="error"></p>
+                <div class="form-group">
+                    <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                    <input id="password" name="password" placeholder="Password" th:field="*{password}"
+                           type="password"/>
+                </div>
+                <div class="form-group">
+                    <input class="agree-term" id="agree-term" name="agree-term" type="checkbox"/>
+                    <label class="label-agree-term" for="agree-term"><span><span></span></span>I agree all
+                        statements in <a class="term-service" href="#">Terms of service</a></label>
+                </div>
+                <div class="form-group form-button">
+                    <input class="form-submit" id="signup" name="signup" type="submit" value="Register"/>
+                </div>
+            </form>
+        </div>
+        <div class="signup-image">
+            <figure><img alt="sing up image" th:src="@{/images/signup-image.jpg}"></figure>
+            <a class="signup-image-link" th:href="@{/login}">I am already member</a>
+        </div>
+    </div>
+</div>
+
+<!-- Libs JS -->
+<div th:replace="layouts::JS-Include"></div>
+</body>
+</html>
