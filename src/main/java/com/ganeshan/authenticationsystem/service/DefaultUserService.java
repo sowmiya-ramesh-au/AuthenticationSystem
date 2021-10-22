@@ -97,4 +97,14 @@ public class DefaultUserService implements UserService {
         tokenService.removeToken(storedToken);
         return true;
     }
+
+    @Override
+    public UserEntity getUserByUsername(String username) {
+        return userRepository.usernameExists(username);
+    }
+
+    @Override
+    public UserEntity getUserByEmail(String email) {
+        return userRepository.emailExists(email);
+    }
 }

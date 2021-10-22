@@ -9,6 +9,7 @@
         <div class="signin-image">
             <figure><img alt="sing up image" th:src="@{/images/signin-image.jpg}"></figure>
             <a class="signup-image-link" th:href="@{/signup}">Create an account</a>
+            <a class="signup-image-link" th:href="@{/forgot/password}">Forgot Password</a>
         </div>
 
         <div class="signin-form">
@@ -16,9 +17,7 @@
             <div class="alert alert-success" role="alert" th:if="${verifiedAccountMsg != null}">
                 <p th:text="${verifiedAccountMsg}"></p>
             </div>
-            <div class="alert alert-danger" role="alert" th:if="${tokenError != null}">
-                <p th:text="${tokenError}"></p>
-            </div>
+
             <form class="register-form" enctype="multipart/form-data" id="login-form" method="POST"
                   th:action="@{/login}">
                 <div class="form-group">

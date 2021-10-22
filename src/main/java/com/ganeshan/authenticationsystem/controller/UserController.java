@@ -2,6 +2,7 @@ package com.ganeshan.authenticationsystem.controller;
 
 import com.ganeshan.authenticationsystem.exception.InvalidTokenException;
 import com.ganeshan.authenticationsystem.exception.UserAlreadyExistException;
+import com.ganeshan.authenticationsystem.model.ResetPasswordData;
 import com.ganeshan.authenticationsystem.model.UserData;
 import com.ganeshan.authenticationsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,19 +71,31 @@ public class UserController {
 
 
     @GetMapping("/login")
-    private String loginPage(@RequestParam(value = "error", defaultValue = "false") boolean loginError, RedirectAttributes redirectAttributes) {
+    public String loginPage(@RequestParam(value = "error", defaultValue = "false") boolean loginError, RedirectAttributes redirectAttributes) {
         if (loginError) {
             redirectAttributes.addFlashAttribute("loginerr", messageSource.getMessage("login.error", null, LocaleContextHolder.getLocale()));
-            return REDIRECT+"/login";
+            return REDIRECT + "/login";
         }
         return "login";
     }
 
 
     @GetMapping("/signup")
-    private String signupPage(Model model) {
+    public String signupPage(Model model) {
         model.addAttribute("user", new UserData());
         return "signup";
     }
+
+    @GetMapping("/forgot/password")
+    public String forgotPasswordPage(Model model) {
+        model.addAttribute("resetPasswordData", new ResetPasswordData());
+        return "forgotpassword";
+    }
+
+//    @GetMapping("/change/password")
+//    public String changePassowrdPage(Model model) {
+//        model.addAttribute("forgotPassword", new ResetPasswordData());
+//        return "changepassword";
+//    }
 
 }

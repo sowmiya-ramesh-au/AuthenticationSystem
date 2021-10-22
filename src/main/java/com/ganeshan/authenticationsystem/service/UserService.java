@@ -3,6 +3,7 @@ package com.ganeshan.authenticationsystem.service;
 import com.ganeshan.authenticationsystem.exception.InvalidTokenException;
 import com.ganeshan.authenticationsystem.exception.UserAlreadyExistException;
 import com.ganeshan.authenticationsystem.model.UserData;
+import com.ganeshan.authenticationsystem.model.UserEntity;
 
 public interface UserService {
 
@@ -13,4 +14,8 @@ public interface UserService {
     boolean checkIfEmailExist(final String email);
 
     boolean verifyUser(String token) throws InvalidTokenException;
+
+    UserEntity getUserByUsername(String username);
+
+    UserEntity getUserByEmail(String email);
 }
