@@ -42,9 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/account/**").hasAuthority("USER")
                 .and()
+                //HTTPS config
+                .requiresChannel().antMatchers("/account/**").requiresSecure()
+                .and()
+                //Remember me config
                 .rememberMe().tokenRepository(persistentTokenRepository())
                 .and()
                 .formLogin()
+                //custom login page config
                 .loginPage("/login")
                 .defaultSuccessUrl("/account/home")
                 .failureUrl("/login?error=true");
