@@ -6,8 +6,15 @@
 <div class="container">
     <!-- Sing in  Form -->
     <div class="signin-content">
-        <h3>Welcome...:)
-        </h3>
+
+        <div class="signin-form">
+            <form class="register-form" id="login-form" method="POST" name="logoutForm"
+                  th:action="@{/logout}">
+                <div class="form-group form-button">
+                    <input class="form-submit" id="logout" name="logout" type="submit" value="Logout"/>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

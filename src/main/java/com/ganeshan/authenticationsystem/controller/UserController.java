@@ -71,10 +71,13 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String loginPage(@RequestParam(value = "error", defaultValue = "false") boolean loginError, RedirectAttributes redirectAttributes) {
+    public String loginPage(@RequestParam(value = "error", defaultValue = "false") boolean loginError, @RequestParam(value = "invalid-session", defaultValue = "false") boolean invalidSession, RedirectAttributes redirectAttributes, final Model model) {
         if (loginError) {
             redirectAttributes.addFlashAttribute("loginerr", messageSource.getMessage("login.error", null, LocaleContextHolder.getLocale()));
             return REDIRECT + "/login";
+        }
+        if (invalidSession) {
+            model.addAttribute("invalidSession", messageSource.getMessage("user.invalid.session", null, LocaleContextHolder.getLocale()));
         }
         return "login";
     }
@@ -91,11 +94,4 @@ public class UserController {
         model.addAttribute("resetPasswordData", new ResetPasswordData());
         return "forgotpassword";
     }
-
-//    @GetMapping("/change/password")
-//    public String changePassowrdPage(Model model) {
-//        model.addAttribute("forgotPassword", new ResetPasswordData());
-//        return "changepassword";
-//    }
-
 }
