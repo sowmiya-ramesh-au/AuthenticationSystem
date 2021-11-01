@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: dev
+email:
+  token:
+    validity: 3600
+http:
+  port: 8080
+
+server:
+  error:
+    include-message: always
+  port: 8443
+
+site:
+  base:
+    url: https://localhost:8443

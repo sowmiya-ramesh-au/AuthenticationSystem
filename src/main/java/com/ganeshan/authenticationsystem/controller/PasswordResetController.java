@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
+import static com.ganeshan.authenticationsystem.AppConstant.REDIRECT_LOGIN;
+
 @Controller
-@RequestMapping("/password")
+@RequestMapping("/reset/password")
 public class PasswordResetController {
 
-    private static final String REDIRECT_LOGIN = "redirect:/login";
     private static final String RESETMSG = "resetPasswordMsg";
 
     @Autowired
@@ -53,7 +54,7 @@ public class PasswordResetController {
     }
 
     @PostMapping("/change")
-    public String changePassword(final ResetPasswordData resetPasswordData, final Model model) {
+    public String changePassword(final ResetPasswordData resetPasswordData, final Model model, RedirectAttributes redirectAttributes) {
         try {
             customerAccountService.updatePassword(resetPasswordData.getPassword(), resetPasswordData.getToken());
         } catch (InvalidTokenException | UnknownIdentifierException e) {
@@ -64,11 +65,17 @@ public class PasswordResetController {
             setResetPasswordForm(model, new ResetPasswordData());
             return "changepassword";
         }
-        model.addAttribute("passwordUpdateMsg",
+        redirectAttributes.addFlashAttribute("passwordUpdateMsg",
                 messageSource.getMessage("user.password.update.message", null, LocaleContextHolder.getLocale())
         );
         setResetPasswordForm(model, new ResetPasswordData());
-        return "changepassword";
+        return REDIRECT_LOGIN;
+    }
+
+    @GetMapping("/forgot")
+    public String forgotPasswordPage(Model model) {
+        model.addAttribute("resetPasswordData", new ResetPasswordData());
+        return "forgotpassword";
     }
 
 

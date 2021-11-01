@@ -28,7 +28,7 @@ public class ForgotPasswordEmailContext extends AbstractEmailContext {
 
     public void buildVerificationUrl(final String baseURL, final String token) {
         final String url = UriComponentsBuilder.fromHttpUrl(baseURL)
-                .path("/password/change").queryParam("token", token).toUriString();
+                .path("/reset/password/change").queryParam("token", token).toUriString();
         put("verificationURL", url);
     }
 

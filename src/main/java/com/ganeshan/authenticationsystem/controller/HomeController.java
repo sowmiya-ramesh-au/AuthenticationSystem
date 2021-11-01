@@ -9,7 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/account")
+@RequestMapping("/account/user")
 public class HomeController {
 
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layouts::head"></head>
+<head th:replace="layouts::head"><title></title></head>
 
 <body>
 <div class="container">
@@ -8,18 +8,27 @@
     <div class="signin-content">
         <div class="signin-image">
             <figure><img alt="sing up image" th:src="@{/images/signin-image.jpg}"></figure>
-            <a class="signup-image-link" th:href="@{/signup}">Create an account</a>
-            <a class="signup-image-link" th:href="@{/forgot/password}">Forgot Password</a>
+            <a class="signup-image-link" th:href="@{/authenticate/signup}">Create an account</a>
+            <a class="signup-image-link" th:href="@{/reset/password/forgot}">Forgot Password</a>
         </div>
 
         <div class="signin-form">
             <h2 class="form-title">Sign In</h2>
+            <div class="alert alert-success" role="alert" th:if="${tokenError != null}">
+                <p th:text="${tokenError}"></p>
+            </div>
             <div class="alert alert-success" role="alert" th:if="${verifiedAccountMsg != null}">
                 <p th:text="${verifiedAccountMsg}"></p>
             </div>
+            <div class="alert alert-success" role="alert" th:if="${passwordUpdateMsg != null}">
+                <p th:text="${passwordUpdateMsg}"></p>
+            </div>
+            <div class="alert alert-success" role="alert" th:if="${resetPasswordMsg != null}">
+                <p th:text="${resetPasswordMsg}"></p>
+            </div>
 
             <form class="register-form" enctype="multipart/form-data" id="login-form" method="POST"
-                  th:action="@{/login}">
+                  th:action="@{/authenticate/login}">
                 <div class="form-group">
                     <div class="alert alert-danger" th:if="${loginerr != null}">
                         <p th:text="${loginerr}"></p>
@@ -52,11 +61,13 @@
             <div class="social-login">
                 <span class="social-label">Or login with</span>
                 <ul class="socials">
-                    <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                    <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                    <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                    <!--                    <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>-->
+                    <!--                    <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>-->
+                    <li><a th:href="@{/oauth2/authorization/google}"><i
+                            class="display-flex-center zmdi zmdi-google"></i></a></li>
                 </ul>
             </div>
+            <h4><a th:href="@{/oauth2/authorization/google}">Login with Google</a></h4>
         </div>
     </div>
 </div>

@@ -35,6 +35,28 @@ public class DefaultUserService implements UserService {
     private String baseURL;
 
     @Override
+    public void processOAuthPostLogin(String username, String email) {
+        UserEntity userEntity = null;
+        if (checkIfEmailExist(email)) {
+            if (!checkIfUserExist(username)) {
+                userEntity = getUserByEmail(email);
+                userEntity.setUsername(username);
+                userEntity.setVerified(true);
+            }
+        } else {
+            userEntity = new UserEntity();
+            userEntity.setUsername(username);
+            userEntity.setEmail(email);
+            userEntity.setVerified(true);
+        }
+
+        if (userEntity != null) {
+            userRepository.save(userEntity);
+        }
+    }
+
+
+    @Override
     public void register(UserData userData) throws UserAlreadyExistException {
         if (checkIfEmailExist(userData.getEmail())) {
             throw new UserAlreadyExistException("Email already available");

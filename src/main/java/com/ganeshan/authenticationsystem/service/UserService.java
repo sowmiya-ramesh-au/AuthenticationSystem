@@ -18,4 +18,6 @@ public interface UserService {
     UserEntity getUserByUsername(String username);
 
     UserEntity getUserByEmail(String email);
+
+    void processOAuthPostLogin(String username, String email);
 }

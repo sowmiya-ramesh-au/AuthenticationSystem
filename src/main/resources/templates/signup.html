@@ -17,7 +17,7 @@
             </div>
 
             <form class="register-form" enctype="multipart/form-data" id="register-form" method="POST"
-                  th:action="@{/signup}"
+                  th:action="@{/authenticate/signup}"
                   th:object="${user}">
 
                 <p th:errorclass="error" th:errors="*{username}"
@@ -52,8 +52,8 @@
         </div>
         <div class="signup-image">
             <figure><img alt="sing up image" th:src="@{/images/signup-image.jpg}"></figure>
-            <a class="signup-image-link" th:href="@{/login}">I am already member</a>
-            <a class="signup-image-link" th:href="@{/forgot/password}">Forgot Password</a>
+            <a class="signup-image-link" th:href="@{/authenticate/login}">I am already member</a>
+            <a class="signup-image-link" th:href="@{/reset/password/forgot}">Forgot Password</a>
         </div>
     </div>
 </div>
